@@ -23,3 +23,4 @@ class CadastroUsuario():
         
         with open (self.arquivo, 'w') as f:
             json.dump(self.user, f, indent=4)
+            
