@@ -10,15 +10,13 @@ class Application:
         self.__model = CadastroUsuario()
         self.__curent_loginusername = None
         
-    def render(self,page,parameter=None):
-        content = self.pages.get(page, self.login)
-        if not parameter:
-            return content()
-        else:
-            return content(parameter)
+    def render(self,page,**kwargs):
+        if page in self.pages:
+            return self.pages[page](**kwargs)  # Passa os argumentos para a função correspondente
+        return template(f'views/html/{page}', **kwargs)
         
         
-    def login(self, mensagem = None):
+    def login(self, mensagem = ""):
         return template('views/html/login', mensagem = mensagem)
     
     def cadastrar_usuario(self,nome,senha):
