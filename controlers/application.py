@@ -19,7 +19,7 @@ class Application:
         
         
     def login(self):
-        return template('app/views/html/login')
+        return template('views/html/login')
     
     def cadastrar_usuario(self,nome,senha):
         self.__model.add_users(nome, senha)
