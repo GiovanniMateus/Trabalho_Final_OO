@@ -22,7 +22,7 @@ def login():
     return ctl.render('login')
 
 @app.route('/login', method='POST')
-def action_portal ():
+def action_login ():
     nome = request.forms.get('nome')
     senha = request.forms.get('senha')
     session_id= ctl.authenticate_user(nome, senha)
@@ -32,3 +32,14 @@ def action_portal ():
         
     else:
         return redirect('/login')
+    
+@app.route('/cadastro', method ='POST')
+def action_cadastro():
+    nome = request.forms.get('nome')
+    senha= request.forms.get('senha')
+    
+    if nome and senha:
+        ctl.cadastrar_usuario(nome, senha)
+        return ctl.render('login', mensagem = 'Cadastro realizado com sucesso')
+    else:
+        return ctl.render('login', mensagem = 'Preencha todos os campos')
