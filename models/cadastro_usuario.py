@@ -6,6 +6,7 @@ class CadastroUsuario():
     def __init__(self, arquivo = 'controlers/database/usuarios.json'):
         self.arquivo = arquivo
         self.user = self.load_users()
+        self.authenticated_users = {} 
         
     def load_users(self):
         try:
