@@ -10,6 +10,14 @@ class Application:
         self.__model = CadastroUsuario()
         self.__curent_loginusername = None
         
+    def render(self,page,parameter=None):
+        content = self.pages.get(page, self.helper)
+        if not parameter:
+            return content()
+        else:
+            return content(parameter)
+        
+        
     def login(self):
         return template('app/views/html/login')
     
