@@ -18,8 +18,8 @@ class Application:
             return content(parameter)
         
         
-    def login(self):
-        return template('views/html/login')
+    def login(self, mensagem = None):
+        return template('views/html/login', mensagem = mensagem)
     
     def cadastrar_usuario(self,nome,senha):
         self.__model.add_users(nome, senha)

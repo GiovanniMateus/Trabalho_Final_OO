@@ -19,19 +19,22 @@ def action_pagina(username=None):
 
 @app.route('/login', method='GET')
 def login():
-    return ctl.render('login')
+    mensagem = request.query.mensagem or "" 
+    return ctl.render(mensagem = mensagem)
 
 @app.route('/login', method='POST')
-def action_login ():
+@app.route('/login', method='POST')
+def action_login():
     nome = request.forms.get('nome')
     senha = request.forms.get('senha')
-    session_id= ctl.authenticate_user(nome, senha)
+    session_id = ctl.authenticate_user(nome, senha)
+
     if session_id:
         response.set_cookie('session_id', str(session_id), httponly=True, secure=True, max_age=3600)
         redirect(f'/menu/{nome}')
-        
     else:
-        return redirect('/login')
+        redirect('/login?mensagem=Usuário ou senha inválidos!')
+
     
 @app.route('/cadastro', method ='POST')
 def action_cadastro():

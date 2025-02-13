@@ -10,10 +10,10 @@
     <div class="container">
         <h1>Login</h1>
 
-        {% if mensagem %}
+        % if mensagem:
             <p style="color: green;">{{ mensagem }}</p>
-        {% end %}
-        
+        % end
+
         <form action="/login" method="post">
             <label for="username">Nome:</label>
             <input id="username" name="username" type="text" required /><br>
