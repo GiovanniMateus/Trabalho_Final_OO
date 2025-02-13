@@ -43,3 +43,7 @@ def action_cadastro():
         return ctl.render('login', mensagem = 'Cadastro realizado com sucesso')
     else:
         return ctl.render('login', mensagem = 'Preencha todos os campos')
+    
+    
+if __name__ == '__main__':
+    run(app, host='localhost', port=8080, debug=True)
