@@ -11,7 +11,7 @@ class Application:
         self.__curent_loginusername = None
         
     def render(self,page,parameter=None):
-        content = self.pages.get(page, self.helper)
+        content = self.pages.get(page, self.login)
         if not parameter:
             return content()
         else:
