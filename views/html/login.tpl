@@ -30,8 +30,8 @@
             <input id="new_username" name="nome" type="text" required /><br>
 
             <label for="new_password">Senha:</label>
-            <input> id= "new_password" name="senha" type="password" required/><br>
-            
+            <input id= "new_password" name="senha" type="password" required /><br>
+
             <button type="submit">Cadastrar</button>
         </form>  
     </div>
