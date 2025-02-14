@@ -20,7 +20,7 @@ def action_pagina(username=None):
 @app.route('/login', method='GET')
 def login():
     mensagem = request.query.mensagem or "" 
-    return ctl.render(mensagem = mensagem)
+    return ctl.render('login',mensagem = mensagem)
 
 @app.route('/login', method='POST')
 @app.route('/login', method='POST')
