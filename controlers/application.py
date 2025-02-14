@@ -4,7 +4,8 @@ from models.cadastro_usuario import CadastroUsuario
 class Application:
     def __init__(self):
         self.pages = {
-            'login': self.login
+            'login': self.login,
+            'menu':self.menu
             
         }
         self.__model = CadastroUsuario()
@@ -24,3 +25,6 @@ class Application:
         
     def authenticate_user(self, nome, senha):
         return self.__model.check_users(nome, senha)
+    
+    def menu(self):
+        return template('views/html/menu')
