@@ -23,7 +23,6 @@ def login():
     return ctl.render('login',mensagem = mensagem)
 
 @app.route('/login', method='POST')
-@app.route('/login', method='POST')
 def action_login():
     nome = request.forms.get('nome')
     senha = request.forms.get('senha')
@@ -46,6 +45,15 @@ def action_cadastro():
         return ctl.render('login', mensagem = 'Cadastro realizado com sucesso')
     else:
         return ctl.render('login', mensagem = 'Preencha todos os campos')
+    
+@app.route('/menu')
+def menu():
+    session_id = request.get_cookie("session_id")
+    if not session_id:
+        redirect('/login')  # Se não estiver logado, redireciona para login
+    return template('views/html/menu')
+
+    
     
     
 if __name__ == '__main__':
