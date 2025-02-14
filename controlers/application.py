@@ -21,3 +21,6 @@ class Application:
     
     def cadastrar_usuario(self,nome,senha):
         self.__model.add_users(nome, senha)
+        
+    def authenticate_user(self, nome, senha):
+        return self.__model.check_users(nome, senha)
