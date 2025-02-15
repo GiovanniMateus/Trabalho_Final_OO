@@ -7,7 +7,7 @@ ctl = Application()
 
 @app.route('/static/<filepath:path>')
 def serve_static(filepath):
-    return static_file(filepath, root='./app/static')
+    return static_file(filepath, root='./static/')
 
 @app.route('/menu', methods=['GET'])
 @app.route('/menu/<username>', methods = ['GET'])
@@ -32,7 +32,7 @@ def action_login():
         response.set_cookie('session_id', str(session_id), httponly=True, secure=True, max_age=3600)
         redirect(f'/menu/{nome}')
     else:
-        redirect('/login?mensagem=Usuário ou senha inválidos!')
+        return template('views/html/login', mensagem="Nome ou senha incorretos!")
 
     
 @app.route('/cadastro', method ='POST')
