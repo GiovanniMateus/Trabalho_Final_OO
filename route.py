@@ -9,7 +9,6 @@ ctl = Application()
 def serve_static(filepath):
     return static_file(filepath, root='./static/')
 
-@app.route('/menu', methods=['GET'])
 @app.route('/menu/<username>', methods = ['GET'])
 def action_pagina(username=None):
     if not username:
@@ -26,13 +25,15 @@ def login():
 def action_login():
     nome = request.forms.get('nome')
     senha = request.forms.get('senha')
-    session_id = ctl.authenticate_user(nome, senha)
 
-    if session_id:
-        response.set_cookie('session_id', str(session_id), httponly=True, secure=True, max_age=3600)
-        redirect(f'/menu/{nome}')
+    print(f"Nome recebido: '{nome}', Senha recebida: '{senha}'")  # Debug
+
+    if ctl.authenticate_user(nome, senha):
+        response.set_cookie("session_id", "algum_valor")  # Simula login
+        redirect('/menu')
     else:
         return template('views/html/login', mensagem="Nome ou senha incorretos!")
+
 
     
 @app.route('/cadastro', method ='POST')
@@ -46,7 +47,7 @@ def action_cadastro():
     else:
         return ctl.render('login', mensagem = 'Preencha todos os campos')
     
-@app.route('/menu')
+@app.route('/menu', method=['GET','POST'])
 def menu():
     session_id = request.get_cookie("session_id")
     if not session_id:
