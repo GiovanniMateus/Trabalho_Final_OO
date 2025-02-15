@@ -14,14 +14,14 @@
             <p style="color: green;">{{ mensagem }}</p>
         % end
 
-        <form action="/login" method="post">
-            <label for="username">Nome:</label>
-            <input id="username" name="username" type="text" required /><br>
+        <form action="/login" method="POST">
+            <label>Nome:</label>
+            <input type="text" name="nome" required>
+    
+            <label>Senha:</label>
+            <input type="password" name="senha" required>
 
-            <label for="password">Senha:</label>
-            <input id="password" name="password" type="password" required /><br>
-
-            <input value="Login" type="submit" />
+            <button type="submit">Login</button>
         </form>
 
         <h2>Cadastre-se</h2>
