@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-    <link rel="stylesheet" href="/static/css/menu.css">
-    <script defer src="/static/js/menu.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- Opcional para estilizar -->
 </head>
 <body>
-    <button id="criarEstoque">Criar Estoque</button>
+    <header>
+        <button id="criarEstoque">Criar Estoque</button>
+    </header>
 
-    <div id="estoques">
-        % for estoque in estoques:
-            <div class="estoque" data-id="{{estoque['id']}}">
-                <span onclick="redirecionarParaEstoque({{estoque['id']}})">{{estoque['nome']}}</span>
-                <button class="excluir" onclick="excluirEstoque({{estoque['id']}})">X</button>
-            </div>
-        % end
-    </div>
+    <main id="estoques">
+        <!-- Os estoques criados aparecerão aqui -->
+    </main>
 
-    <button id="logout" onclick="logout()">Logout</button>
+    <footer>
+        <button id="logout">Logout</button>
+    </footer>
+
+    <script src="/static/js/menu.js"></script>
 </body>
 </html>
