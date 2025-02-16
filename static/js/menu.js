@@ -1,28 +1,59 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let contador = 1;
+document.addEventListener("DOMContentLoaded", async function () {
+    let container = document.getElementById("estoques");
 
-    // Botão para criar estoque
-    document.getElementById("criarEstoque").addEventListener("click", function () {
-        let container = document.getElementById("estoques");
+    // Carregar estoques do servidor
+    async function carregarEstoques() {
+        let response = await fetch("/api/estoques");
+        let estoques = await response.json();
+        container.innerHTML = ""; // Limpa o container antes de renderizar
+
+        estoques.forEach(estoque => {
+            criarElementoEstoque(estoque.id, estoque.nome);
+        });
+    }
+
+    // Criar um novo estoque
+    document.getElementById("criarEstoque").addEventListener("click", async function () {
+        let response = await fetch("/api/estoques", { method: "POST" });
+        if (response.ok) {
+            let novoEstoque = await response.json();
+            criarElementoEstoque(novoEstoque.id, novoEstoque.nome);
+        }
+    });
+
+    // Criar um elemento de estoque na tela
+    function criarElementoEstoque(id, nome) {
         let estoque = document.createElement("div");
         estoque.classList.add("estoque");
-        estoque.innerHTML = `Estoque ${contador} <button class="excluir">X</button>`;
+        estoque.innerHTML = `${nome} <button class="excluir" data-id="${id}">X</button>`;
 
-        // Evento de clique para redirecionar ou excluir estoque
         estoque.addEventListener("click", function (event) {
             if (event.target.classList.contains("excluir")) {
-                container.removeChild(estoque);
+                excluirEstoque(event.target.getAttribute("data-id"), estoque);
             } else {
-                window.location.href = `/estoque/${contador}`;
+                window.location.href = `/estoque/${id}`;
             }
         });
 
         container.appendChild(estoque);
-        contador++;
+    }
+
+    // Excluir estoque
+    async function excluirEstoque(id, elemento) {
+        let response = await fetch(`/api/estoques/${id}`, { method: "DELETE" });
+        if (response.ok) {
+            elemento.remove();
+        }
+    }
+
+    // Logout do usuário
+    document.getElementById("logout").addEventListener("click", function () {
+        fetch("/logout", { method: "POST" }).then(() => {
+            window.location.href = "/login";
+        });
     });
 
-    // Botão de logout
-    document.getElementById("logout").addEventListener("click", function () {
-        window.location.href = "/login";
-    });
+    // Inicializar carregando estoques
+    await carregarEstoques();
 });
+

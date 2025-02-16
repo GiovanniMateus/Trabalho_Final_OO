@@ -54,6 +54,27 @@ def menu():
         redirect('/login')  # Se não estiver logado, redireciona para login
     return template('views/html/menu')
 
+    estoques = app.get_estoques(session_id)  # Busca estoques do usuário logado
+    return template('views/html/menu', estoques=estoques)
+
+@route('/criar_estoque', method='POST')
+def criar_estoque():
+    session_id = request.get_cookie("session_id")
+    if not session_id:
+        redirect('/login')
+
+    app.adicionar_estoque(session_id)
+    return {'success': True}
+
+route('/excluir_estoque/<estoque_id>', method='POST')
+def excluir_estoque(estoque_id):
+    session_id = request.get_cookie("session_id")
+    if not session_id:
+        redirect('/login')
+
+    app.remover_estoque(session_id, estoque_id)
+    return {'success': True}
+
     
     
     
